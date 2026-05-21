@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone 14 - Full UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="phone-body">
+    <!-- Main Phone Container -->
+    <div class="phone-container">
+        <!-- iPhone Frame -->
+        <div class="iphone-frame-full">
+            <!-- Notch/Dynamic Island -->
+            <div class="notch" id="notch">
+                <div class="notch-content">
+                    <span id="notchTime">09:41</span>
+                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="status-left">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="status-right">
+                    <span id="batteryPercent">100%</span>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- Screen Content -->
+            <div class="phone-screen" id="phoneScreen">
+                <!-- Lock Screen -->
+                <div class="screen-view lock-screen" id="lockScreen">
+                    <div class="lock-content">
+                        <div class="lock-time" id="lockTime">09:41</div>
+                        <div class="lock-date" id="lockDate">Wednesday, May 21</div>
+                        <div class="lock-notifications">
+                            <div class="notification-item">
+                                <i class="fas fa-message"></i>
+                                <span>2 messages</span>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Calendar event</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Home Screen -->
+                <div class="screen-view home-screen" id="homeScreen" style="display: none;">
+                    <div class="search-bar" onclick="showSpotlight()">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </div>
+                    <div class="home-content">
+                        <div class="app-grid">
+                            <div class="app-item" onclick="openApp('phone')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #00d084 0%, #00b077 100%); color: white;">
+                                    <i class="fas fa-phone fa-2x"></i>
+                                </div>
+                                <span class="app-label">Phone</span>
+                                <span class="badge" id="phoneBadge">3</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('messages')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #00c759 0%, #00a840 100%); color: white;">
+                                    <i class="fas fa-message fa-2x"></i>
+                                </div>
+                                <span class="app-label">Messages</span>
+                                <span class="badge" id="messagesBadge">5</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('camera')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #222 0%, #000 100%); color: white;">
+                                    <i class="fas fa-camera fa-2x"></i>
+                                </div>
+                                <span class="app-label">Camera</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('settings')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #a2a2a2 0%, #747474 100%); color: white;">
+                                    <i class="fas fa-gear fa-2x"></i>
+                                </div>
+                                <span class="app-label">Settings</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('weather')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #87ceeb 0%, #4a90e2 100%); color: white;">
+                                    <i class="fas fa-cloud-sun fa-2x"></i>
+                                </div>
+                                <span class="app-label">Weather</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('maps')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #34c759 0%, #30b0c0 100%); color: white;">
+                                    <i class="fas fa-map fa-2x"></i>
+                                </div>
+                                <span class="app-label">Maps</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('safari')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #0071e3 0%, #0056b3 100%); color: white;">
+                                    <i class="fas fa-globe fa-2x"></i>
+                                </div>
+                                <span class="app-label">Safari</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('photos')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%); color: white;">
+                                    <i class="fas fa-image fa-2x"></i>
+                                </div>
+                                <span class="app-label">Photos</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('music')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #fa243c 0%, #eb1c63 100%); color: white;">
+                                    <i class="fas fa-music fa-2x"></i>
+                                </div>
+                                <span class="app-label">Music</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('calendar')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #d20015 0%, #990612 100%); color: white;">
+                                    <i class="fas fa-calendar fa-2x"></i>
+                                </div>
+                                <span class="app-label">Calendar</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('notes')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #ffcc00 0%, #ffaa00 100%); color: white;">
+                                    <i class="fas fa-sticky-note fa-2x"></i>
+                                </div>
+                                <span class="app-label">Notes</span>
+                                <span class="badge" id="notesBadge">2</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('reminders')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #ff3b30 0%, #ff1744 100%); color: white;">
+                                    <i class="fas fa-list-check fa-2x"></i>
+                                </div>
+                                <span class="app-label">Reminders</span>
+                            </div>
+                            <div class="app-item" onclick="openApp('health')">
+                                <div class="app-icon" style="background: linear-gradient(135deg, #ff2d55 0%, #ff1744 100%); color: white;">
+                                    <i class="fas fa-heartbeat fa-2x"></i>
+                                </div>
+                                <span class="app-label">Health</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dock -->
+                    <div class="app-dock">
+                        <div class="dock-item" onclick="openApp('phone')">
+                            <div class="app-icon" style="background: linear-gradient(135deg, #00d084 0%, #00b077 100%); color: white;">
+                                <i class="fas fa-phone fa-lg"></i>
+                            </div>
+                        </div>
+                        <div class="dock-item" onclick="openApp('safari')">
+                            <div class="app-icon" style="background: linear-gradient(135deg, #0071e3 0%, #0056b3 100%); color: white;">
+                                <i class="fas fa-globe fa-lg"></i>
+                            </div>
+                        </div>
+                        <div class="dock-item" onclick="openApp('photos')">
+                            <div class="app-icon" style="background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%); color: white;">
+                                <i class="fas fa-image fa-lg"></i>
+                            </div>
+                        </div>
+                        <div class="dock-item" onclick="openApp('music')">
+                            <div class="app-icon" style="background: linear-gradient(135deg, #fa243c 0%, #eb1c63 100%); color: white;">
+                                <i class="fas fa-music fa-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spotlight Search -->
+                <div class="screen-view spotlight" id="spotlight" style="display: none;">
+                    <div class="spotlight-content">
+                        <input type="text" class="spotlight-input" placeholder="Search" id="spotlightInput" autofocus>
+                        <div class="spotlight-results" id="spotlightResults">
+                            <div class="result-item">
+                                <i class="fas fa-search"></i>
+                                <span>Search for apps, contacts, and more</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Views -->
+                <div class="screen-view app-view phone-app" id="phoneApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Phone</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="phone-call-item">
+                            <i class="fas fa-phone-slash text-danger"></i>
+                            <div>
+                                <div class="contact-name">Mom</div>
+                                <div class="contact-info">Missed call</div>
+                            </div>
+                        </div>
+                        <div class="phone-call-item">
+                            <i class="fas fa-phone text-success"></i>
+                            <div>
+                                <div class="contact-name">John</div>
+                                <div class="contact-info">Today 2:30 PM</div>
+                            </div>
+                        </div>
+                        <div class="phone-call-item">
+                            <i class="fas fa-phone text-success"></i>
+                            <div>
+                                <div class="contact-name">Sarah</div>
+                                <div class="contact-info">Today 10:15 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screen-view app-view messages-app" id="messagesApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Messages</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="message-item">
+                            <div class="message-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">M</div>
+                            <div>
+                                <div class="message-name">Mom</div>
+                                <div class="message-text">How are you doing?</div>
+                            </div>
+                        </div>
+                        <div class="message-item">
+                            <div class="message-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">J</div>
+                            <div>
+                                <div class="message-name">John</div>
+                                <div class="message-text">Let's meet tomorrow</div>
+                            </div>
+                        </div>
+                        <div class="message-item">
+                            <div class="message-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">S</div>
+                            <div>
+                                <div class="message-name">Sarah</div>
+                                <div class="message-text">Thanks for the update!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screen-view app-view camera-app" id="cameraApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Camera</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="camera-viewfinder"></div>
+                        <div class="camera-controls">
+                            <button class="camera-btn"><i class="fas fa-circle fa-2x"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screen-view app-view settings-app" id="settingsApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Settings</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="settings-item">
+                            <div class="settings-label">Wi-Fi</div>
+                            <i class="fas fa-wifi text-primary"></i>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-label">Bluetooth</div>
+                            <i class="fas fa-bluetooth text-info"></i>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-label">Airplane Mode</div>
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-label">Battery</div>
+                            <i class="fas fa-battery-full text-success"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screen-view app-view safari-app" id="safariApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Safari</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="safari-bar">
+                            <i class="fas fa-globe"></i>
+                            <input type="text" placeholder="Search or enter website" class="safari-input">
+                        </div>
+                        <div class="safari-content">
+                            <p>Start browsing...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screen-view app-view photos-app" id="photosApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Photos</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="photos-grid">
+                            <div class="photo-item" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            <div class="photo-item" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                            <div class="photo-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                            <div class="photo-item" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screen-view app-view music-app" id="musicApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Music</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="music-player">
+                            <div class="album-art"></div>
+                            <div class="song-info">
+                                <div class="song-title">Summer Vibes</div>
+                                <div class="artist-name">The Groove</div>
+                            </div>
+                            <div class="music-controls">
+                                <i class="fas fa-play text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="screen-view app-view calendar-app" id="calendarApp" style="display: none;">
+                    <div class="app-header">
+                        <h3>Calendar</h3>
+                        <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="app-content">
+                        <div class="calendar-header">May 2026</div>
+                        <div class="calendar-day">
+                            <div class="day-name">Today</div>
+                            <div class="day-number">21</div>
+                        </div>
+                        <div class="event-item">
+                            <i class="fas fa-circle text-info"></i>
+                            <div>
+                                <div class="event-title">Team Meeting</div>
+                                <div class="event-time">2:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Center -->
+            <div class="notification-center" id="notificationCenter">
+                <div class="notification-header">
+                    <div class="notification-title">Notifications</div>
+                    <button class="notification-close" onclick="closeNotificationCenter()" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="notification-list">
+                    <div class="notification-item">
+                        <div class="notification-icon" style="background: linear-gradient(135deg,#00d084 0%,#00b077 100%);"><i class="fas fa-message"></i></div>
+                        <div class="notification-body">
+                            <div class="notification-name">Mom</div>
+                            <div class="notification-text">Where are you?</div>
+                        </div>
+                        <div class="notification-time">Now</div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon" style="background: linear-gradient(135deg,#0071e3 0%,#0056b3 100%);"><i class="fas fa-calendar"></i></div>
+                        <div class="notification-body">
+                            <div class="notification-name">Calendar</div>
+                            <div class="notification-text">Team meeting at 2:00 PM</div>
+                        </div>
+                        <div class="notification-time">1h</div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon" style="background: linear-gradient(135deg,#fa243c 0%,#eb1c63 100%);"><i class="fas fa-music"></i></div>
+                        <div class="notification-body">
+                            <div class="notification-name">Music</div>
+                            <div class="notification-text">Now playing: Summer Vibes</div>
+                        </div>
+                        <div class="notification-time">Today</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Center -->
+            <div class="control-center" id="controlCenter">
+                <div class="control-items">
+                    <div class="control-item">
+                        <i class="fas fa-wifi"></i>
+                        <span>Wi-Fi</span>
+                    </div>
+                    <div class="control-item">
+                        <i class="fas fa-bluetooth"></i>
+                        <span>Bluetooth</span>
+                    </div>
+                    <div class="control-item">
+                        <i class="fas fa-plane"></i>
+                        <span>Airplane</span>
+                    </div>
+                    <div class="control-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Light</span>
+                    </div>
+                </div>
+                <div class="brightness-slider">
+                    <span>Brightness</span>
+                    <input type="range" min="0" max="100" value="100">
+                </div>
+            </div>
+
+
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="phone-buttons">
+            <button class="btn btn-success me-2" onclick="toggleLockUnlock()"><i class="fas fa-lock"></i> <span id="lockBtnText">Unlock</span></button>
+            <button class="btn btn-info me-2" onclick="goHome()"><i class="fas fa-home"></i> Home</button>
+            <button class="btn btn-secondary" onclick="toggleControlCenter()"><i class="fas fa-sliders-h"></i> Controls</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -261,15 +261,15 @@
                         <button class="close-app" onclick="closeApp()"><i class="fas fa-times"></i></button>
                     </div>
                     <div class="app-content">
-                        <div class="settings-item">
+                        <div class="settings-item" data-row="wifi">
                             <div class="settings-label">Wi-Fi</div>
-                            <i class="fas fa-wifi text-primary"></i>
+                            <i class="fas fa-wifi"></i>
                         </div>
-                        <div class="settings-item">
+                        <div class="settings-item" data-row="bluetooth">
                             <div class="settings-label">Bluetooth</div>
                             <i class="fas fa-bluetooth text-info"></i>
                         </div>
-                        <div class="settings-item">
+                        <div class="settings-item" data-row="airplane">
                             <div class="settings-label">Airplane Mode</div>
                             <i class="fas fa-plane"></i>
                         </div>
@@ -391,19 +391,19 @@
             <!-- Control Center -->
             <div class="control-center" id="controlCenter">
                 <div class="control-items">
-                    <div class="control-item">
+                    <div class="control-item" data-control="wifi" role="button" tabindex="0" aria-pressed="false" aria-label="Wi-Fi">
                         <i class="fas fa-wifi"></i>
                         <span>Wi-Fi</span>
                     </div>
-                    <div class="control-item">
+                    <div class="control-item" data-control="bluetooth">
                         <i class="fas fa-bluetooth"></i>
                         <span>Bluetooth</span>
                     </div>
-                    <div class="control-item">
+                    <div class="control-item" data-control="airplane">
                         <i class="fas fa-plane"></i>
                         <span>Airplane</span>
                     </div>
-                    <div class="control-item">
+                    <div class="control-item" data-control="light">
                         <i class="fas fa-lightbulb"></i>
                         <span>Light</span>
                     </div>

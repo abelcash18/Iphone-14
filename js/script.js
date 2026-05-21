@@ -72,12 +72,75 @@ function toggleControlCenter() {
     controlCenter.classList.toggle('show');
 }
 
+// Connectivity / Device State (for Control Center + Settings sync)
+const deviceState = {
+    wifi: true,
+    bluetooth: true,
+    airplane: false,
+    light: true,
+};
+
+function setDeviceState(nextPartial) {
+    Object.assign(deviceState, nextPartial);
+
+    // Airplane mode forces Wi‑Fi and Bluetooth off (simplified iOS behavior)
+    if (deviceState.airplane) {
+        deviceState.wifi = false;
+        deviceState.bluetooth = false;
+    }
+
+    renderControlCenterState();
+    renderSettingsState();
+}
+
+function renderControlCenterState() {
+    const getItem = (selector) => document.querySelector(selector);
+
+    const wifiItem = getItem('[data-control="wifi"]');
+    const btItem = getItem('[data-control="bluetooth"]');
+    const airplaneItem = getItem('[data-control="airplane"]');
+    const lightItem = getItem('[data-control="light"]');
+
+    if (wifiItem) wifiItem.classList.toggle('active', !!deviceState.wifi);
+    if (btItem) btItem.classList.toggle('active', !!deviceState.bluetooth);
+    if (airplaneItem) airplaneItem.classList.toggle('active', !!deviceState.airplane);
+    if (lightItem) lightItem.classList.toggle('active', !!deviceState.light);
+}
+
+function renderSettingsState() {
+    const wifiRow = document.querySelector('#settingsApp .settings-item[data-row="wifi"] i');
+    const btRow = document.querySelector('#settingsApp .settings-item[data-row="bluetooth"] i');
+    const airplaneRow = document.querySelector('#settingsApp .settings-item[data-row="airplane"] i');
+    const batteryRow = document.querySelector('#settingsApp .settings-item[data-row="battery"] i');
+
+    // Wi‑Fi / Bluetooth: if off, switch to muted icon color; if on, restore original-ish classes.
+    if (wifiRow) {
+        wifiRow.classList.toggle('text-primary', !!deviceState.wifi);
+        wifiRow.classList.toggle('text-secondary', !deviceState.wifi);
+    }
+    if (btRow) {
+        btRow.classList.toggle('text-info', !!deviceState.bluetooth);
+        btRow.classList.toggle('text-secondary', !deviceState.bluetooth);
+    }
+    if (airplaneRow) {
+        // When airplane is ON, emphasize.
+        airplaneRow.classList.toggle('text-success', !!deviceState.airplane);
+        airplaneRow.classList.toggle('text-secondary', !deviceState.airplane);
+    }
+    // Battery row left as-is.
+    if (batteryRow) {
+        batteryRow.classList.toggle('text-success', true);
+    }
+}
+
 // Notification Center
 let notificationCenterEl = null;
 let notificationCenterOpen = false;
 
 function openNotificationCenter() {
+    if (currentApp) return; // simplified: only from lock/home
     if (isLocked) return; // keep it locked like a simplified iOS behavior
+
     notificationCenterEl = document.getElementById('notificationCenter');
     if (!notificationCenterEl) return;
     notificationCenterOpen = true;
@@ -96,6 +159,76 @@ function toggleNotificationCenter() {
     else openNotificationCenter();
 }
 
+// Notification Center gesture (pull-down from top)
+(function initNotificationGesture() {
+    const phoneScreen = document.getElementById('phoneScreen');
+    if (!phoneScreen) return;
+
+    let startY = null;
+    let tracking = false;
+    phoneScreen.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        if (deviceState.airplane) return; // arbitrary but harmless: keep gesture from conflicting (simplified)
+        if (currentApp) return;
+        startY = e.clientY;
+        tracking = true;
+    });
+
+    phoneScreen.addEventListener('pointermove', (e) => {
+        if (!tracking || startY === null) return;
+        const dy = e.clientY - startY;
+        const isPull = dy > 45;
+        const startedNearTop = startY - phoneScreen.getBoundingClientRect().top < 140;
+        if (isPull && startedNearTop) {
+            // show NC
+            openNotificationCenter();
+            tracking = false;
+            startY = null;
+        }
+    });
+
+    phoneScreen.addEventListener('pointerup', () => {
+        tracking = false;
+        startY = null;
+    });
+})();
+
+// Notification Center keyboard toggle
+document.addEventListener('keydown', (e) => {
+    if (e.key && e.key.toLowerCase() === 'n') {
+        toggleNotificationCenter();
+    }
+});
+
+// Wire Control Center buttons
+(function initControlCenterToggles() {
+    const phone = document.querySelector('.iphone-frame-full');
+    if (!phone) return;
+
+    document.querySelectorAll('#controlCenter .control-item[data-control]').forEach((item) => {
+        item.addEventListener('click', () => {
+            const key = item.getAttribute('data-control');
+            if (!key) return;
+            if (key === 'wifi') setDeviceState({ wifi: !deviceState.wifi, airplane: false });
+            if (key === 'bluetooth') setDeviceState({ bluetooth: !deviceState.bluetooth, airplane: false });
+            if (key === 'airplane') setDeviceState({ airplane: !deviceState.airplane });
+            if (key === 'light') setDeviceState({ light: !deviceState.light });
+        });
+    });
+
+    // Settings rows are also clickable for sync
+    document.querySelectorAll('#settingsApp .settings-item[data-row]').forEach((row) => {
+        row.addEventListener('click', () => {
+            const dataRow = row.getAttribute('data-row');
+            if (dataRow === 'wifi') setDeviceState({ wifi: !deviceState.wifi, airplane: false });
+            if (dataRow === 'bluetooth') setDeviceState({ bluetooth: !deviceState.bluetooth, airplane: false });
+            if (dataRow === 'airplane') setDeviceState({ airplane: !deviceState.airplane });
+        });
+    });
+
+    renderControlCenterState();
+    renderSettingsState();
+})();
 
 // Swipe to close (simplified for mouse)
 document.addEventListener('mouseup', function(e) {

@@ -1,5 +1,6 @@
 - [x] Implement Notification Center overlay (pull-down gesture, close behavior, demo notifications)
 
+
 - [ ] Implement App Switcher (swipe up gesture / home-indicator long-press, open app cards, tap-to-restore)
 - [ ] Make Control Center buttons functional (Wi‑Fi/Bluetooth/Airplane/Light toggles + Settings sync)
 - [ ] Refine brightness slider to affect only screen region
